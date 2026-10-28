@@ -1,6 +1,9 @@
 spring:
   application:
     name: ecoshop
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 springdoc:
   swagger-ui:
