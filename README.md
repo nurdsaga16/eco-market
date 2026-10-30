@@ -19,12 +19,16 @@ docker compose up --build
 [http://localhost:8080/documentation](http://localhost:8080/documentation).
 Контроллеры пока пустые, поэтому список операций в Swagger будет пустым.
 
-Dockerfile запускает тесты и собирает JAR в образе Gradle 9.8.2 с JDK 25,
+Dockerfile выполняет задачу `test` и собирает JAR в образе Gradle 9.8.2 с JDK 25,
 используя `build.gradle.kts`. Приложение работает в отдельном образе Eclipse Temurin 25 JRE.
 Compose запускает приложение после успешного healthcheck PostgreSQL.
 
-Данные PostgreSQL хранятся в именованном volume `postgres_data` и сохраняются
-при остановке и пересоздании контейнеров. Остановка:
+Сейчас тестовый файл пуст, поэтому тестовые проверки не выполняются.
+
+PostgreSQL использует именованный volume `postgres_data`, который сохраняется
+при остановке и пересоздании контейнеров. Однако сейчас `ddl-auto: create`
+пересоздаёт таблицы сущностей при каждом запуске приложения и удаляет их данные.
+Для сохранения данных между запусками верните `ddl-auto: update`. Остановка:
 
 ```shell
 docker compose down

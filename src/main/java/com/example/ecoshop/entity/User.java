@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.example.ecoshop.enums.UserRole;
 
+import jakarta.persistence.CheckConstraint;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,7 +23,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity 
-@Table(name = "users")
+@Table(
+    name = "users",
+    check = @CheckConstraint(
+        constraint = "phone_number ~ '^[+]7[0-9]{10}$'"
+    )
+)
 @Builder
 @Getter 
 @Setter 
